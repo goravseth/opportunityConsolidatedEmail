@@ -1,0 +1,25 @@
+global class OpportunityEmailComponentController {
+  // this controller accepts ownerId as an input and outputs the list of opps that is sent in the email to the user
+  // the query and the getRecords element in the flow should use the same filter criteria
+  // it can be easiest to filter the both on a custom formula field on the opportunity object
+  // this demo just filters for all open opps for the given owner   
+
+    global String oppOwnerId {get;set;}
+    global List<Opportunity> oppList {
+    
+        get{             
+       /* can use a visualforce page to test this component and set &oppOwnerId='insertanIdHere' in the url
+            if(String.isBlank(oppOwnerId)){
+               // oppOwnerId = ApexPages.currentPage().getParameters().get('oppOwnerId');                
+            }*/
+            oppList = new List<opportunity>();            
+            if(String.isNotBlank(oppOwnerId)){
+                oppList = ([Select Id, name,closeDate,Account.Name,Amount,StageName FROM Opportunity WHERE OwnerId =: oppOwnerId AND IsClosed = FALSE order by CloseDate ASC]);
+            }   
+            system.debug('opplist = ' + oppList);
+            return oppList;            
+        }
+        set;
+        }
+    
+}
