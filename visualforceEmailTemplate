@@ -1,1 +1,63 @@
-coming soon
+<messaging:emailTemplate subject="Opportunity Review Report" recipientType="User" relatedToType="User" renderUsingSystemContextWithoutSharing="True" >
+
+<messaging:htmlEmailBody >
+
+    <style type="text/css">
+            body {font-family: Sans-Serif;}
+            TH {font-face: arial;background: #CCCCCC; border-width: 1;  text-align: left; padding: 8px; } 
+            TD  {font-face: verdana; border-width: 1; padding: 8px;} 
+            TABLE {border: solid #CCCCCC; border-width: 3; width: 640px; border-collapse: collapse; margin: 8px 0px 8px 0px; font-size:70%;}
+            TR {border-bottom: solid #CCCCCC; border-width: 2}
+            tr:nth-child(even){background-color: #f2f2f2;}
+            ul li {padding-bottom:8px;}
+    </STYLE>
+
+<!--
+
+ <style type="text/css">
+     table{     
+          background-color: white;
+          font-size: 75%;
+          white-space: normal;
+          overflow-wrap: break-word;
+          word-wrap: break-word;
+
+        }
+ 
+    th {
+      background-color: #fafaf9;
+      color: #514f4d;
+      padding: 0.25rem 0.5rem;
+      font-weight: 600;
+      line-height: normal;
+      text-align: left;
+    }
+    
+    th, td {
+    padding: 0.25rem 0.5rem;
+    border-bottom: 2px solid #CCCCCC;
+    }              
+    
+</style>
+-->
+
+<p>
+Dear {!relatedTo.FirstName},
+</p>
+
+<p>
+Here is a list of your open opps.
+</p>
+ 
+<p>
+<c:OppEmailComponent oppOwner="{!relatedTo.Id}"/>
+</p>
+
+<p>
+Please do the needful <br />
+This is an automated message.  
+</p>
+
+</messaging:htmlEmailBody>
+
+</messaging:emailTemplate>
