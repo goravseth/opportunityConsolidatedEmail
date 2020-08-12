@@ -1,0 +1,46 @@
+public class Invocable_ExtractUniqueList {
+
+    //takes a list of sobjects and a string for the field to extract
+    //returns a list of the unique values for that field
+    //ownerId is a good example use case - will return a unique list of ownerIds that can be used to send an email
+    //there is no error handling
+    //use at your own risk - you may want to find someone who does this for a living to review this...
+    
+    @InvocableMethod
+    public static List <Result> execute (List<Request> requestList) {
+
+         List<result> responseWrapper= new List<result>();
+        for(request r : requestList){
+          string fte = r.fieldToEvaluateApiName;   
+            result output = new result();
+            output.outputMember = new list<string>();
+          set<string> uniqueValues = new set<string>();
+            
+            //iterate over the incoming list of sObjects and extract the value of the provided field
+          for(sobject s : r.sObjinputCollectionApiName){
+               string st = (string)s.get(fte);
+                system.debug('st = ' + st);
+              uniqueValues.add(st);            
+            }
+     system.debug('unique values size = ' + uniquevalues.size());
+        output.outputMember.addAll(uniqueValues);
+        responseWrapper.add(output);   
+        }
+        return responseWrapper;    
+    }
+
+    public class request {
+
+      @InvocableVariable(required=true)
+      public List<SObject> sObjinputCollectionApiName;
+        
+      @InvocableVariable(required=true)
+      public String fieldToEvaluateApiName;      
+    }    
+
+    public class result {     
+
+      @InvocableVariable
+      public list<string> outputMember;
+    }
+}
