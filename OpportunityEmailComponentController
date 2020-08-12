@@ -1,0 +1,53 @@
+<apex:component controller="OpportunityEmailComponentController" access="global">
+   
+    <apex:attribute name="oppOwner" type="String" description="Opp Owner Id" assignTo="{!oppOwnerId}" access="global" />
+       
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+        <thead>
+            <tr class="slds-line-height_reset">
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Opp Name">Opp Name</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Close Date">Close Date</div>
+                </th>                
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Account Name">Account Name</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Amount">Amount</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Stage">Stage</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>            
+            <apex:repeat value="{!oppList}" var="opp">
+                <tr class="slds-hint-parent">
+                    <td data-label="Opportunity Name">
+                        <div class="slds-truncate" title="{!opp.name}">{!opp.name}</div>
+                    </td>
+                    <td data-label="Close Date">
+                        <div class="slds-truncate" title="{!opp.CloseDate}">
+                            <apex:outputText value="{0,date,MMM d, yyyy}"> 
+                                <apex:param value="{!opp.CloseDate}"/>
+                            </apex:outputText>
+                        </div>
+                    </td>
+                    <td data-label="Account Name">
+                        <div class="slds-truncate" title="{!opp.Account.Name}">{!opp.Account.Name}</div>
+                    </td>
+                    <td data-label="Amount">
+                        <div class="slds-truncate" title="{!opp.Amount}">{!opp.Amount}</div>
+                    </td>
+                    <td data-label="Stage">
+                        <div class="slds-truncate" title="{!opp.StageName}">{!opp.StageName}</div>
+                    </td>                                        
+                </tr>
+            </apex:repeat>
+        
+        </tbody>
+    </table>
+
+</apex:component>
